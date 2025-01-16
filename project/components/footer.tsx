@@ -5,7 +5,7 @@ const footerLinks = {
   company: [
     { label: "Chi Siamo", href: "/about" },
     { label: "Servizi", href: "/services" },
-    { label: "Tutorial", href: "/tutorial" },
+//    { label: "Tutorial", href: "/tutorial" },
     { label: "Contatti", href: "/contact" },
   ],
   legal: [
@@ -14,10 +14,10 @@ const footerLinks = {
     { label: "Cookie Policy", href: "/cookies" },
   ],
   social: [
-    { label: "Twitter", href: "https://twitter.com", icon: Twitter },
-    { label: "LinkedIn", href: "https://linkedin.com", icon: Linkedin },
-    { label: "GitHub", href: "https://github.com", icon: Github },
-    { label: "Instagram", href: "https://instagram.com", icon: Instagram },
+//    { label: "Twitter", href: "https://twitter.com", icon: Twitter },
+    { label: "LinkedIn", href: "https://linkedin.com/company/idola-ai", icon: Linkedin },
+//    { label: "GitHub", href: "https://github.com", icon: Github },
+    { label: "Instagram", href: "https://instagram.com/idola.ai", icon: Instagram },
   ],
 };
 

@@ -11,7 +11,7 @@ const routes = [
   { href: "/", label: "Home", icon: Home },
   { href: "/about", label: "Chi Siamo", icon: Info },
   { href: "/services", label: "Servizi", icon: Brain },
-  { href: "/tutorial", label: "Tutorial", icon: BookOpen },
+//  { href: "/tutorial", label: "Tutorial", icon: BookOpen },
   { href: "/contact", label: "Contatti", icon: Mail },
 ];
 
