@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Brain, Github, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
+import { IdolaLogo } from "@/components/idola-logo";
 
 const footerLinks = {
   company: [
     { label: "Chi Siamo", href: "/about" },
     { label: "Servizi", href: "/services" },
-//    { label: "Tutorial", href: "/tutorial" },
     { label: "Contatti", href: "/contact" },
   ],
   legal: [
@@ -14,9 +14,7 @@ const footerLinks = {
     { label: "Cookie Policy", href: "/cookies" },
   ],
   social: [
-//    { label: "Twitter", href: "https://twitter.com", icon: Twitter },
     { label: "LinkedIn", href: "https://linkedin.com/company/idola-ai", icon: Linkedin },
-//    { label: "GitHub", href: "https://github.com", icon: Github },
     { label: "Instagram", href: "https://instagram.com/idola.ai", icon: Instagram },
   ],
 };
@@ -28,7 +26,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <Brain className="h-8 w-8 text-amber-500" />
+              <IdolaLogo size={32} />
               <span className="text-xl font-bold">IDOLA</span>
             </Link>
             <p className="text-sm text-muted-foreground">

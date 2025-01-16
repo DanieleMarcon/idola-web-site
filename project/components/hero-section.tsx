@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Brain, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { IdolaLogo } from "@/components/idola-logo";
 
 export function HeroSection() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -16,7 +17,6 @@ export function HeroSection() {
   return (
     <>
       <section className="relative min-h-[70vh] flex items-center justify-center py-16 overflow-hidden">
-        {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-amber-950/20" />
 
         <div className="container mx-auto px-4 relative z-10">
@@ -26,7 +26,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Brain className="w-14 h-14 mx-auto mb-6 text-amber-500" />
+              <IdolaLogo size={56} className="mx-auto mb-6" />
               <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-amber-500">
                 Il Futuro è Qui
               </h1>
@@ -76,7 +76,7 @@ export function HeroSection() {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col space-y-4">
               <div className="flex items-center space-x-2 mb-4">
-                <Brain className="w-6 h-6 text-amber-500" />
+                <IdolaLogo size={24} />
                 <h3 className="font-semibold">IDOLA AI Assistant</h3>
               </div>
               
