@@ -15,10 +15,13 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Initialize Supabase client only on the client side
+const supabase = typeof window !== 'undefined' 
+  ? createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+    )
+  : null;
 
 const stats = [
   {
@@ -53,6 +56,11 @@ export default function AdminPage() {
     e.preventDefault();
     setError("");
 
+    if (!supabase) {
+      setError("Configurazione Supabase non disponibile");
+      return;
+    }
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: credentials.username,
@@ -67,6 +75,21 @@ export default function AdminPage() {
       setError(err.message || "Errore durante l'accesso");
     }
   };
+
+  if (!supabase) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <Card className="bg-black/50 border-border/50">
+          <CardHeader>
+            <CardTitle>Errore di Configurazione</CardTitle>
+            <CardDescription>
+              La configurazione di Supabase non è disponibile. Contatta l'amministratore.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
