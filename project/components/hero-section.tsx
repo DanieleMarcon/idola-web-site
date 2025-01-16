@@ -15,7 +15,7 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center py-32 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center justify-center py-16 overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-amber-950/20" />
 
@@ -26,11 +26,11 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <Brain className="w-16 h-16 mx-auto mb-8 text-amber-500" />
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-amber-500">
+              <Brain className="w-14 h-14 mx-auto mb-6 text-amber-500" />
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-amber-500">
                 Il Futuro è Qui
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8">
+              <p className="text-lg text-muted-foreground mb-6">
                 Scopri le nostre soluzioni innovative in AI, Blockchain, VR/AR e
                 Metaverso. Trasforma la tua visione in realtà con Idola.
               </p>
@@ -54,7 +54,7 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="mt-12"
+              className="mt-8"
             >
               <ChevronDown className="w-6 h-6 mx-auto animate-bounce text-amber-500" />
             </motion.div>

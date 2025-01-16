@@ -32,8 +32,7 @@ export function Footer() {
               <span className="text-xl font-bold">IDOLA</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Innovazione tecnologica per il futuro digitale. AI, Blockchain,
-              VR/AR e Metaverso.
+              Innovazione tecnologica per il futuro digitale.
             </p>
           </div>
 

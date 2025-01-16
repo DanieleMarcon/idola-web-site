@@ -18,8 +18,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import useEmblaCarousel from 'embla-carousel-react';
-import AutoPlay from 'embla-carousel-autoplay';
 
 const services = [
   {
@@ -61,14 +59,6 @@ const services = [
 ];
 
 export function ServicesOverview() {
-  const [emblaRef] = useEmblaCarousel({ 
-    loop: true,
-    align: "start",
-    slidesToScroll: 1,
-  }, [
-    AutoPlay({ delay: 4000, stopOnInteraction: false })
-  ]);
-
   return (
     <section className="py-24 bg-gradient-to-b from-black to-amber-950/10">
       <div className="container mx-auto px-4">
