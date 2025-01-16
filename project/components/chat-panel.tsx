@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send } from "lucide-react";
-import { Logo } from "@/components/logo";
+import { Brain, Send } from "lucide-react";
 
 interface ChatPanelProps {
   isOpen: boolean;
@@ -74,7 +73,7 @@ export function ChatPanel({ isOpen, onClose }: ChatPanelProps) {
         >
           <div className="p-4 border-b border-border/50 flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Logo size={24} />
+              <Brain className="w-6 h-6 text-amber-500" />
               <h3 className="font-semibold">IDOLA AI Assistant</h3>
             </div>
             <Button variant="ghost" size="sm" onClick={onClose}>
