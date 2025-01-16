@@ -150,7 +150,7 @@ export default function ServicesPage() {
             <Button
               size="lg"
               className="bg-amber-500 hover:bg-amber-600 text-black"
-              onClick={() => window.open('https://calendly.com/idola-ai/30min', '_blank')}
+              onClick={() => window.open('https://calendly.com/idola-info/30min', '_blank')}
             >
               Prenota una Call Gratuita
             </Button>
