@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Brain, Award, Users, Rocket, Target, Flag, Star } from "lucide-react";
+import { Brain, Award, Users, Rocket, Target, Flag, Star, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const milestones = [
   {
@@ -148,6 +149,27 @@ export default function AboutPage() {
               })}
             </div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="max-w-2xl mx-auto text-center mt-24 p-8 rounded-lg border border-border/50 backdrop-blur-sm"
+          >
+            <h2 className="text-2xl font-bold mb-4">Vuoi Saperne di Più?</h2>
+            <p className="text-muted-foreground mb-8">
+              Scopri come Idola può aiutare la tua azienda a crescere attraverso l'innovazione tecnologica. 
+              Prenota una chiamata gratuita di 30 minuti con uno dei nostri esperti per discutere delle tue esigenze.
+            </p>
+            <Button
+              size="lg"
+              className="bg-amber-500 hover:bg-amber-600 text-black group"
+              onClick={() => window.open('https://calendly.com/idola-info/30min', '_blank')}
+            >
+              Prenota una Call Gratuita
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </motion.div>
         </div>
       </section>
     </div>
