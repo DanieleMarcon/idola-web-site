@@ -16,8 +16,13 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="relative min-h-[70vh] flex items-center justify-center py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-amber-950/20" />
+      <section 
+        className="relative min-h-[90vh] flex items-center justify-center py-16 overflow-hidden bg-fixed bg-cover bg-center"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80")',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -70,7 +75,7 @@ export function HeroSection() {
           opacity: isChatOpen ? 1 : 0
         }}
         transition={{ duration: 0.3 }}
-        className="bg-black/50 border-y border-border/50 overflow-hidden"
+        className="bg-black/50 border-y border-border/50 overflow-hidden backdrop-blur-sm"
       >
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
