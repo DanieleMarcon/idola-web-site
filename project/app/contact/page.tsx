@@ -12,21 +12,21 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    details: "info@idola.tech",
-    link: "mailto:info@idola.tech",
+    details: "info@idola.it",
+    link: "mailto:info@idola.it",
   },
-  {
-    icon: Phone,
-    title: "Telefono",
-    details: "+39 02 1234567",
-    link: "tel:+390212345678",
-  },
-  {
-    icon: MapPin,
-    title: "Indirizzo",
-    details: "Via dell'Innovazione, 42 - Milano",
-    link: "https://maps.google.com",
-  },
+//  {
+//    icon: Phone,
+//    title: "Telefono",
+//    details: "+39 02 1234567",
+//    link: "tel:+390212345678",
+//  },
+//  {
+//    icon: MapPin,
+//    title: "Indirizzo",
+//    details: "Via dell'Innovazione, 42 - Milano",
+//    link: "https://maps.google.com",
+//  },
 ];
 
 export default function ContactPage() {

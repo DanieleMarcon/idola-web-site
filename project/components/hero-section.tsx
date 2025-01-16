@@ -15,7 +15,7 @@ export function HeroSection() {
 
   return (
     <>
-      <section className="relative min-h-screen flex items-center justify-center py-32 overflow-hidden">
+      <section className="relative h-[80vh] flex items-center justify-center py-16 overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-amber-950/20" />
 
