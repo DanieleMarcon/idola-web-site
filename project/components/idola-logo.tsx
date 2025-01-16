@@ -8,7 +8,7 @@ interface IdolaLogoProps {
 export function IdolaLogo({ className = "", size = 32 }: IdolaLogoProps) {
   return (
     <Image
-      src="/logo.svg"
+      src="/logo.png"
       alt="Idola Logo"
       width={size}
       height={size}
