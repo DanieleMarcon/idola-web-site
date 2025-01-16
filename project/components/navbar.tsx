@@ -5,13 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Brain, Home, Info, BookOpen, Mail, Menu, X } from "lucide-react";
+import { Info, BookOpen, Mail, Menu, X } from "lucide-react";
+import { Logo } from "@/components/logo";
 
 const routes = [
-  { href: "/", label: "Home", icon: Home },
   { href: "/about", label: "Chi Siamo", icon: Info },
-  { href: "/services", label: "Servizi", icon: Brain },
-//  { href: "/tutorial", label: "Tutorial", icon: BookOpen },
+  { href: "/services", label: "Servizi", icon: Info },
   { href: "/contact", label: "Contatti", icon: Mail },
 ];
 
@@ -37,10 +36,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <Brain className="h-8 w-8 text-amber-500" />
-            <span className="text-xl font-bold">IDOLA</span>
-          </Link>
+          <Logo />
 
           <nav className="hidden md:flex items-center space-x-6">
             {routes.map((route) => {
