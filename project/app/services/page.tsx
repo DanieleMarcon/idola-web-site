@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Brain, Cpu, Glasses, Globe } from "lucide-react";
+import { Brain, Cpu, Glasses, Globe, Layout, BarChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,6 +21,28 @@ const services = [
       "Natural Language Processing",
       "Computer Vision",
       "Automazione dei processi",
+    ],
+  },
+  {
+    icon: Layout,
+    title: "Web Design",
+    description: "Siti web innovativi, performanti e su misura per ogni esigenza aziendale.",
+    features: [
+      "Siti web 3.0",
+      "Chatbot AI",
+      "Automazione AI",
+      "Integrazione Web3 e SEO avanzato",
+    ],
+  },
+  {
+    icon: BarChart,
+    title: "AI Marketing Suite",
+    description: "L'intelligenza artificiale al servizio della crescita digitale.",
+    features: [
+      "Automazione e Ottimizzazione delle Campagne",
+      "Creazione di Contenuti AI-Driven",
+      "Analisi Predittiva e Customer Insights",
+      "Chatbot e AI per Engagement e Lead Generation",
     ],
   },
   {
@@ -78,7 +100,7 @@ export default function ServicesPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
@@ -97,7 +119,7 @@ export default function ServicesPage() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <ul className="space-y-2 mb-6">
+                      <ul className="space-y-2">
                         {service.features.map((feature) => (
                           <li key={feature} className="flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
@@ -105,15 +127,34 @@ export default function ServicesPage() {
                           </li>
                         ))}
                       </ul>
-                      <Button variant="secondary" className="w-full">
-                        Scopri di più
-                      </Button>
                     </CardContent>
                   </Card>
                 </motion.div>
               );
             })}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="max-w-2xl mx-auto text-center"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Pronto a Trasformare il Tuo Business?
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Prenota una call gratuita con i nostri esperti per scoprire come possiamo aiutarti
+              a raggiungere i tuoi obiettivi.
+            </p>
+            <Button
+              size="lg"
+              className="bg-amber-500 hover:bg-amber-600 text-black"
+              onClick={() => window.open('https://calendly.com/idola-ai/30min', '_blank')}
+            >
+              Prenota una Call Gratuita
+            </Button>
+          </motion.div>
         </div>
       </section>
     </div>
