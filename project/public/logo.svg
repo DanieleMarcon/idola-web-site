@@ -1,6 +1,0 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="256" cy="256" r="256" fill="black"/>
-  <path d="M106.667 256C106.667 171.307 175.307 102.667 260 102.667C344.693 102.667 413.333 171.307 413.333 256C413.333 340.693 344.693 409.333 260 409.333C175.307 409.333 106.667 340.693 106.667 256Z" stroke="white" strokeWidth="2"/>
-  <path d="M150 200L200 250M200 250L250 200M200 250L150 300M200 250L250 300" stroke="white" strokeWidth="2"/>
-  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" fill="white" style="font-family: sans-serif; font-size: 48px;">idola</text>
-</svg>

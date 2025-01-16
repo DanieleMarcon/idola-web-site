@@ -26,7 +26,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <IdolaLogo size={56} className="mx-auto mb-6" />
+              <IdolaLogo size={300} className="mx-auto mb-6" />
               <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-amber-500">
                 Il Futuro è Qui
               </h1>

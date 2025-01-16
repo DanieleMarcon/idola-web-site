@@ -24,10 +24,9 @@ export function Footer() {
     <footer className="bg-black border-t border-border/50">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <IdolaLogo size={32} />
-              <span className="text-xl font-bold">IDOLA</span>
+              <IdolaLogo size={100} />
             </Link>
             <p className="text-sm text-muted-foreground">
               Innovazione tecnologica per il futuro digitale.

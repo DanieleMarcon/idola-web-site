@@ -60,7 +60,7 @@ const services = [
 
 export function ServicesOverview() {
   return (
-    <section className="py-24 bg-gradient-to-b from-black to-amber-950/10">
+    <section className="py-24 bg-black">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -91,7 +91,7 @@ export function ServicesOverview() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.2 }}
                       >
-                        <Card className="bg-black/50 border-border/50 backdrop-blur-sm hover:border-amber-500/50 transition-colors h-full">
+                        <Card className="h-full bg-black border-border/50 hover:border-amber-500/50 transition-colors">
                           <CardHeader>
                             <Icon className="w-12 h-12 text-amber-500 mb-4" />
                             <CardTitle>{service.title}</CardTitle>

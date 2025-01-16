@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Brain, Award, Users, Rocket } from "lucide-react";
+import { Brain, Award, Users, Rocket, Target, Flag, Star } from "lucide-react";
 
 const milestones = [
   {
@@ -49,6 +49,76 @@ export default function AboutPage() {
               all'avanguardia per AI, Blockchain, VR/AR e Metaverso. La nostra missione è
               trasformare il futuro digitale attraverso tecnologie innovative e sostenibili.
             </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-6xl mx-auto mb-24">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <Target className="w-8 h-8 text-amber-500" />
+                <h2 className="text-3xl font-bold">Vision</h2>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Immaginiamo un futuro in cui la tecnologia potenzia e arricchisce ogni aspetto della vita umana. 
+                La nostra visione è quella di essere pionieri nella creazione di un mondo digitale più intelligente, 
+                connesso e accessibile, dove l'innovazione tecnologica serve come catalizzatore per il progresso 
+                sociale e lo sviluppo sostenibile.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <Flag className="w-8 h-8 text-amber-500" />
+                <h2 className="text-3xl font-bold">Mission</h2>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                La nostra missione è sviluppare soluzioni tecnologiche all'avanguardia che trasformano 
+                le sfide in opportunità. Ci impegniamo a fornire innovazioni concrete nel campo dell'AI, 
+                blockchain e metaverso, creando valore tangibile per i nostri clienti e contribuendo a 
+                plasmare un futuro digitale più inclusivo e sostenibile.
+              </p>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="max-w-6xl mx-auto mb-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          >
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 mb-4">
+                <Star className="w-8 h-8 text-amber-500" />
+                <h2 className="text-3xl font-bold">Il Fondatore</h2>
+              </div>
+              <h3 className="text-2xl font-semibold">Daniele Marcon</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Con oltre 15 anni di esperienza nel settore tech, Daniele ha guidato progetti innovativi 
+                in aziende di svariati settori. La sua visione per Idola nasce dalla convinzione che 
+                la tecnologia debba essere uno strumento di progresso sociale e sviluppo sostenibile.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Laureato in Teoria e Tecnologia della Comunicazione all'Università degli Studi di Milano-Bicocca e con diverse specializzazioni 
+                in Intelligenza Artificiale Generativa e Modelli di Intelligenza Artificiale, Daniele combina competenze tecniche e visione  
+                imprenditoriale per guidare Idola verso nuove frontiere dell'innovazione.
+              </p>
+            </div>
+            <div className="relative aspect-square rounded-2xl overflow-hidden">
+              <img
+                src="/Daniele-Marcon.jpg"
+                alt="Daniele Marcon - Fondatore di Idola"
+                className="object-cover w-full h-full"
+              />
+            </div>
           </motion.div>
 
           <div className="max-w-5xl mx-auto">
