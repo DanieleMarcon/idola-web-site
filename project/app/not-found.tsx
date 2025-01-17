@@ -1,12 +1,5 @@
-"use client";
-
-import { useEffect } from 'react';
-import { i18n } from '@/i18n-config';
+import { notFound } from 'next/navigation';
 
 export default function RootNotFound() {
-  useEffect(() => {
-    window.location.href = `/${i18n.defaultLocale}`;
-  }, []);
-
-  return null;
+  notFound();
 }
