@@ -7,7 +7,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { CookieConsent } from '@/components/cookie-consent';
 import { getDictionary } from '@/get-dictionary';
 import { Locale, i18n } from '@/i18n-config';
-import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Idola - Advanced Technology Solutions',
@@ -17,11 +16,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Generate static params for all supported locales
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
-}
-
 export default async function LocaleLayout({
   children,
   params,
@@ -30,8 +24,10 @@ export default async function LocaleLayout({
   params: { lang: Locale };
 }) {
   // Check if the locale is supported
-  if (!i18n.locales.includes(params.lang)) {
-    notFound();
+  const isValidLocale = i18n.locales.includes(params.lang);
+  if (!isValidLocale) {
+    // For static export, we'll handle this client-side
+    return null;
   }
 
   const dictionary = await getDictionary(params.lang);
