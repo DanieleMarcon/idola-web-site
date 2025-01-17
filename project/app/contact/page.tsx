@@ -23,12 +23,17 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const form = e.target as HTMLFormElement;
-      const formData = new FormData(form);
+      const formElement = e.target as HTMLFormElement;
+      const formData = new FormData(formElement);
       
+      // Add form-name field for Netlify
+      formData.append("form-name", "contact");
+
       const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         body: new URLSearchParams(formData as any).toString(),
       });
 
@@ -38,6 +43,7 @@ export default function ContactPage() {
           description: "Ti risponderemo il prima possibile.",
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
+        formElement.reset();
       } else {
         throw new Error("Errore nell'invio del messaggio");
       }
@@ -62,11 +68,12 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-black">
       {/* Hidden form for Netlify form detection */}
-      <form name="contact" data-netlify="true" hidden>
+      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
         <input type="text" name="name" />
         <input type="email" name="email" />
         <input type="text" name="subject" />
         <textarea name="message"></textarea>
+        <input type="hidden" name="form-name" value="contact" />
       </form>
 
       <section className="py-24">
@@ -97,22 +104,21 @@ export default function ContactPage() {
               className="space-y-8"
             >
               <form 
-                onSubmit={handleSubmit} 
-                className="space-y-6"
-                data-netlify="true"
                 name="contact"
                 method="POST"
-                netlify-honeypot="bot-field"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="space-y-6"
               >
-                {/* Netlify Forms Hidden Input */}
                 <input type="hidden" name="form-name" value="contact" />
                 
                 {/* Honeypot field */}
-                <p className="hidden">
+                <div hidden>
                   <label>
                     Non compilare questo campo se sei umano: <input name="bot-field" />
                   </label>
-                </p>
+                </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
