@@ -1,81 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 
 export default function ContactPage() {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const formElement = e.target as HTMLFormElement;
-      const formData = new FormData(formElement);
-      
-      // Add form-name field for Netlify
-      formData.append("form-name", "contact");
-
-      const response = await fetch("/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams(formData as any).toString(),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Messaggio inviato",
-          description: "Ti risponderemo il prima possibile.",
-        });
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        formElement.reset();
-      } else {
-        throw new Error("Errore nell'invio del messaggio");
-      }
-    } catch (error) {
-      toast({
-        title: "Errore",
-        description: "Si è verificato un errore. Riprova più tardi.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
   return (
     <div className="min-h-screen bg-black">
-      {/* Hidden form for Netlify form detection */}
-      <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="subject" />
-        <textarea name="message"></textarea>
-        <input type="hidden" name="form-name" value="contact" />
-      </form>
-
       <section className="py-24">
         <div className="container mx-auto px-4">
           <motion.div
@@ -107,8 +40,7 @@ export default function ContactPage() {
                 name="contact"
                 method="POST"
                 data-netlify="true"
-                data-netlify-honeypot="bot-field"
-                onSubmit={handleSubmit}
+                netlify-honeypot="bot-field"
                 className="space-y-6"
               >
                 <input type="hidden" name="form-name" value="contact" />
@@ -128,8 +60,6 @@ export default function ContactPage() {
                     <Input
                       id="name"
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
                       required
                       minLength={2}
                       maxLength={50}
@@ -147,8 +77,6 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       type="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                       className="bg-black/50"
@@ -163,8 +91,6 @@ export default function ContactPage() {
                   <Input
                     id="subject"
                     name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
                     required
                     minLength={5}
                     maxLength={100}
@@ -179,8 +105,6 @@ export default function ContactPage() {
                   <Textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
                     required
                     minLength={20}
                     maxLength={1000}
@@ -188,13 +112,9 @@ export default function ContactPage() {
                     aria-required="true"
                   />
                 </div>
-                <Button 
-                  type="submit" 
-                  className="w-full"
-                  disabled={isSubmitting}
-                >
+                <Button type="submit" className="w-full">
                   <Send className="w-4 h-4 mr-2" />
-                  {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
+                  Invia Messaggio
                 </Button>
               </form>
 
