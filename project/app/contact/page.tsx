@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function ContactPage() {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,13 +18,38 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Messaggio inviato",
-      description: "Ti risponderemo il prima possibile.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const form = e.target as HTMLFormElement;
+      const formData = new FormData(form);
+      
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Messaggio inviato",
+          description: "Ti risponderemo il prima possibile.",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error("Errore nell'invio del messaggio");
+      }
+    } catch (error) {
+      toast({
+        title: "Errore",
+        description: "Si è verificato un errore. Riprova più tardi.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -35,6 +61,14 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-black">
+      {/* Hidden form for Netlify form detection */}
+      <form name="contact" data-netlify="true" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="subject" />
+        <textarea name="message"></textarea>
+      </form>
+
       <section className="py-24">
         <div className="container mx-auto px-4">
           <motion.div
@@ -62,11 +96,28 @@ export default function ContactPage() {
               transition={{ delay: 0.2 }}
               className="space-y-8"
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-6"
+                data-netlify="true"
+                name="contact"
+                method="POST"
+                netlify-honeypot="bot-field"
+              >
+                {/* Netlify Forms Hidden Input */}
+                <input type="hidden" name="form-name" value="contact" />
+                
+                {/* Honeypot field */}
+                <p className="hidden">
+                  <label>
+                    Non compilare questo campo se sei umano: <input name="bot-field" />
+                  </label>
+                </p>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium">
-                      Nome
+                      Nome *
                     </label>
                     <Input
                       id="name"
@@ -74,11 +125,17 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
+                      minLength={2}
+                      maxLength={50}
+                      pattern="^[A-Za-zÀ-ÿ\s]{2,50}$"
+                      title="Inserisci un nome valido (solo lettere)"
+                      className="bg-black/50"
+                      aria-required="true"
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium">
-                      Email
+                      Email *
                     </label>
                     <Input
                       id="email"
@@ -87,12 +144,15 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                      className="bg-black/50"
+                      aria-required="true"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="subject" className="text-sm font-medium">
-                    Oggetto
+                    Oggetto *
                   </label>
                   <Input
                     id="subject"
@@ -100,11 +160,15 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
+                    minLength={5}
+                    maxLength={100}
+                    className="bg-black/50"
+                    aria-required="true"
                   />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium">
-                    Messaggio
+                    Messaggio *
                   </label>
                   <Textarea
                     id="message"
@@ -112,12 +176,19 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="min-h-[150px]"
+                    minLength={20}
+                    maxLength={1000}
+                    className="min-h-[150px] bg-black/50"
+                    aria-required="true"
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
                   <Send className="w-4 h-4 mr-2" />
-                  Invia Messaggio
+                  {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
                 </Button>
               </form>
 
