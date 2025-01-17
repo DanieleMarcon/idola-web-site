@@ -25,6 +25,7 @@ export default async function LocaleLayout({
   // Validate locale
   if (!i18n.locales.includes(params.lang)) {
     notFound();
+    return null; // This line is necessary to satisfy TypeScript
   }
 
   const dictionary = await getDictionary(params.lang);
