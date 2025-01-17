@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { CookieConsent } from '@/components/cookie-consent';
 import { getDictionary } from '@/get-dictionary';
 import { Locale, i18n } from '@/i18n-config';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -28,7 +28,7 @@ export default async function LocaleLayout({
 }) {
   // Validate locale
   if (!i18n.locales.includes(params.lang)) {
-    notFound();
+    redirect(`/${i18n.defaultLocale}/`);
   }
 
   const dictionary = await getDictionary(params.lang);

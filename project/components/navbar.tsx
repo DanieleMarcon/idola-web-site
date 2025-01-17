@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, Info, Brain, BookOpen, Mail, Menu, X } from "lucide-react";
+import { Home, Info, Brain, Mail, Menu, X } from "lucide-react";
 import { IdolaLogo } from "@/components/idola-logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Locale } from "@/i18n-config";
@@ -24,9 +24,9 @@ interface NavbarProps {
 
 const getRoutes = (dictionary: NavDictionary) => [
   { href: "/", label: dictionary.home, icon: Home },
-  { href: "/about", label: dictionary.about, icon: Info },
-  { href: "/services", label: dictionary.services, icon: Brain },
-  { href: "/contact", label: dictionary.contact, icon: Mail },
+  { href: "/about/", label: dictionary.about, icon: Info },
+  { href: "/services/", label: dictionary.services, icon: Brain },
+  { href: "/contact/", label: dictionary.contact, icon: Mail },
 ];
 
 export function Navbar({ dictionary, lang }: NavbarProps) {
@@ -44,10 +44,8 @@ export function Navbar({ dictionary, lang }: NavbarProps) {
   }, []);
 
   const isActive = (path: string) => {
-    if (path === "/") {
-      return pathname === `/${lang}`;
-    }
-    return pathname === `/${lang}${path}`;
+    const currentPath = pathname.replace(`/${lang}`, '') || '/';
+    return path === currentPath;
   };
 
   return (
@@ -59,17 +57,18 @@ export function Navbar({ dictionary, lang }: NavbarProps) {
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link href={`/${lang}`} className="flex items-center space-x-2">
+          <Link href={`/${lang}/`} className="flex items-center space-x-2">
             <IdolaLogo size={50} />
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
             {routes.map((route) => {
               const Icon = route.icon;
+              const fullPath = `/${lang}${route.href}`;
               return (
                 <Link
                   key={route.href}
-                  href={`/${lang}${route.href}`}
+                  href={fullPath}
                   className={cn(
                     "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-amber-500",
                     isActive(route.href) ? "text-amber-500" : "text-muted-foreground"
@@ -102,10 +101,11 @@ export function Navbar({ dictionary, lang }: NavbarProps) {
         <nav className="md:hidden border-t border-border/50 bg-black/95 backdrop-blur-sm">
           {routes.map((route) => {
             const Icon = route.icon;
+            const fullPath = `/${lang}${route.href}`;
             return (
               <Link
                 key={route.href}
-                href={`/${lang}${route.href}`}
+                href={fullPath}
                 className={cn(
                   "flex items-center space-x-2 px-4 py-3 text-sm font-medium transition-colors hover:bg-accent",
                   isActive(route.href) ? "text-amber-500" : "text-muted-foreground"

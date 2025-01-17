@@ -15,11 +15,12 @@ export function LanguageSwitcher() {
   const pathName = usePathname();
   const router = useRouter();
 
-  const redirectedPathName = (locale: string) => {
-    if (!pathName) return "/";
-    const segments = pathName.split("/");
+  const handleLanguageChange = (locale: string) => {
+    // Ottieni il percorso corrente senza la lingua
+    const segments = pathName.split('/');
     segments[1] = locale;
-    return segments.join("/");
+    const newPath = segments.join('/');
+    router.push(newPath);
   };
 
   return (
@@ -36,7 +37,7 @@ export function LanguageSwitcher() {
           return (
             <DropdownMenuItem
               key={locale}
-              onClick={() => router.push(redirectedPathName(locale))}
+              onClick={() => handleLanguageChange(locale)}
             >
               {label}
             </DropdownMenuItem>
