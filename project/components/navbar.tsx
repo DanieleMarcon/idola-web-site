@@ -43,6 +43,13 @@ export function Navbar({ dictionary, lang }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === `/${lang}`;
+    }
+    return pathname === `/${lang}${path}`;
+  };
+
   return (
     <header
       className={cn(
@@ -65,9 +72,7 @@ export function Navbar({ dictionary, lang }: NavbarProps) {
                   href={`/${lang}${route.href}`}
                   className={cn(
                     "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-amber-500",
-                    pathname === `/${lang}${route.href}`
-                      ? "text-amber-500"
-                      : "text-muted-foreground"
+                    isActive(route.href) ? "text-amber-500" : "text-muted-foreground"
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -103,9 +108,7 @@ export function Navbar({ dictionary, lang }: NavbarProps) {
                 href={`/${lang}${route.href}`}
                 className={cn(
                   "flex items-center space-x-2 px-4 py-3 text-sm font-medium transition-colors hover:bg-accent",
-                  pathname === `/${lang}${route.href}`
-                    ? "text-amber-500"
-                    : "text-muted-foreground"
+                  isActive(route.href) ? "text-amber-500" : "text-muted-foreground"
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >

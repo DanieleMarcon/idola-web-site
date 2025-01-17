@@ -8,6 +8,10 @@ import { getDictionary } from '@/get-dictionary';
 import { Locale, i18n } from '@/i18n-config';
 import { notFound } from 'next/navigation';
 
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
 export async function generateMetadata({ params }: { params: { lang: Locale } }): Promise<Metadata> {
   return {
     title: 'Idola - Advanced Technology Solutions',

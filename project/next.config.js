@@ -1,12 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  // Remove trailing slashes for static export
+  // Enable i18n routing
+  i18n: {
+    locales: ['it', 'en', 'es'],
+    defaultLocale: 'it',
+    localeDetection: true
+  },
+  // Remove trailing slashes
   trailingSlash: false,
   // Configure base path if needed
   basePath: '',
-  // Disable image optimization for static export
-  images: { unoptimized: true },
+  // Enable image optimization
+  images: {
+    domains: ['images.unsplash.com'],
+  },
   // Ignore ESLint during builds
   eslint: {
     ignoreDuringBuilds: true,
