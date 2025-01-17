@@ -2,7 +2,14 @@ import { HeroSection } from "@/components/hero-section";
 import { ServicesOverview } from "@/components/services-overview";
 import { WhyChooseUs } from "@/components/why-choose-us";
 import { getDictionary } from '@/get-dictionary';
-import { Locale } from '@/i18n-config';
+import { Locale, i18n } from '@/i18n-config';
+
+// Add generateStaticParams function
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({
+    lang: locale,
+  }));
+}
 
 export default async function Home({
   params: { lang },
