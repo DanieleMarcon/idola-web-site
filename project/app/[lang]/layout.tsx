@@ -1,6 +1,5 @@
 import '../globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
@@ -8,8 +7,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { CookieConsent } from '@/components/cookie-consent';
 import { getDictionary } from '@/get-dictionary';
 import { Locale, i18n } from '@/i18n-config';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Idola - Advanced Technology Solutions',
@@ -33,18 +30,14 @@ export default async function LocaleLayout({
   const dictionary = await getDictionary(params.lang);
 
   return (
-    <html lang={params.lang} suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <div className="flex min-h-screen flex-col bg-black text-white">
-            <Navbar dictionary={dictionary.navigation} lang={params.lang} />
-            <main className="flex-1">{children}</main>
-            <Footer dictionary={dictionary.navigation} lang={params.lang} />
-          </div>
-          <Toaster />
-          <CookieConsent />
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+      <div className="flex min-h-screen flex-col bg-black text-white">
+        <Navbar dictionary={dictionary.navigation} lang={params.lang} />
+        <main className="flex-1">{children}</main>
+        <Footer dictionary={dictionary.navigation} lang={params.lang} />
+      </div>
+      <Toaster />
+      <CookieConsent />
+    </ThemeProvider>
   );
 }

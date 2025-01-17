@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 import { match as matchLocale } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
 import { i18n } from './i18n-config';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 function getLocale(request: NextRequest): string {
   const negotiatorHeaders: Record<string, string> = {};
@@ -33,13 +33,15 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
-    const newUrl = new URL(`/${locale}${pathname}`, request.url);
-    return NextResponse.redirect(newUrl);
+    return NextResponse.redirect(
+      new URL(`/${locale}${pathname === '/' ? '' : pathname}`, request.url)
+    );
   }
 
   return NextResponse.next();
 }
 
+// Update config to only run middleware on specific paths
 export const config = {
   matcher: [
     // Skip all internal paths (_next, api)
