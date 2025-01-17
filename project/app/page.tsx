@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/hero-section";
 import { ServicesOverview } from "@/components/services-overview";
+import { WhyChooseUs } from "@/components/why-choose-us";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       >
         <ServicesOverview />
       </div>
+      <WhyChooseUs />
       <div 
         className="relative bg-fixed bg-cover bg-center"
         style={{
