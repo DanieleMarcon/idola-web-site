@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { IdolaLogo } from "@/components/idola-logo";
+import { ChatSection } from "@/components/chat-section";
 
 export function HeroSection() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -67,7 +68,7 @@ export function HeroSection() {
         </div>
       </section>
 
-      {/* Rest of the component remains unchanged */}
+      {isChatOpen && <ChatSection />}
     </>
   );
 }
