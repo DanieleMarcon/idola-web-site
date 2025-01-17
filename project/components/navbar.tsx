@@ -7,18 +7,26 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Home, Info, Brain, BookOpen, Mail, Menu, X } from "lucide-react";
 import { IdolaLogo } from "@/components/idola-logo";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { Locale } from "@/i18n-config";
 
-const routes = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/about", label: "Chi Siamo", icon: Info },
-  { href: "/services", label: "Servizi", icon: Brain },
-  { href: "/contact", label: "Contatti", icon: Mail },
+const getRoutes = (dictionary: any) => [
+  { href: "/", label: dictionary.home, icon: Home },
+  { href: "/about", label: dictionary.about, icon: Info },
+  { href: "/services", label: dictionary.services, icon: Brain },
+  { href: "/contact", label: dictionary.contact, icon: Mail },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  dictionary: any;
+  lang: Locale;
+}
+
+export function Navbar({ dictionary, lang }: NavbarProps) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const routes = getRoutes(dictionary);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +45,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href={`/${lang}`} className="flex items-center space-x-2">
             <IdolaLogo size={50} />
           </Link>
 
@@ -47,10 +55,10 @@ export function Navbar() {
               return (
                 <Link
                   key={route.href}
-                  href={route.href}
+                  href={`/${lang}${route.href}`}
                   className={cn(
                     "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-amber-500",
-                    pathname === route.href
+                    pathname === `/${lang}${route.href}`
                       ? "text-amber-500"
                       : "text-muted-foreground"
                   )}
@@ -60,6 +68,7 @@ export function Navbar() {
                 </Link>
               );
             })}
+            <LanguageSwitcher />
           </nav>
 
           <Button
@@ -84,10 +93,10 @@ export function Navbar() {
             return (
               <Link
                 key={route.href}
-                href={route.href}
+                href={`/${lang}${route.href}`}
                 className={cn(
                   "flex items-center space-x-2 px-4 py-3 text-sm font-medium transition-colors hover:bg-accent",
-                  pathname === route.href
+                  pathname === `/${lang}${route.href}`
                     ? "text-amber-500"
                     : "text-muted-foreground"
                 )}
@@ -98,6 +107,9 @@ export function Navbar() {
               </Link>
             );
           })}
+          <div className="px-4 py-3">
+            <LanguageSwitcher />
+          </div>
         </nav>
       )}
     </header>

@@ -1,20 +1,28 @@
 import { HeroSection } from "@/components/hero-section";
 import { ServicesOverview } from "@/components/services-overview";
 import { WhyChooseUs } from "@/components/why-choose-us";
+import { getDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
-export default function Home() {
+export default async function Home({
+  params: { lang },
+}: {
+  params: { lang: Locale };
+}) {
+  const dictionary = await getDictionary(lang);
+
   return (
     <div className="flex flex-col min-h-screen">
-      <HeroSection />
+      <HeroSection dictionary={dictionary.hero} />
       <div 
         className="relative bg-fixed bg-cover bg-center py-24"
         style={{
           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80")',
         }}
       >
-        <ServicesOverview />
+        <ServicesOverview dictionary={dictionary.services} />
       </div>
-      <WhyChooseUs />
+      <WhyChooseUs dictionary={dictionary.whyChooseUs} />
       <div 
         className="relative bg-fixed bg-cover bg-center"
         style={{
