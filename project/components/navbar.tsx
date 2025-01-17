@@ -10,17 +10,24 @@ import { IdolaLogo } from "@/components/idola-logo";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Locale } from "@/i18n-config";
 
-const getRoutes = (dictionary: any) => [
+interface NavDictionary {
+  home: string;
+  about: string;
+  services: string;
+  contact: string;
+}
+
+interface NavbarProps {
+  dictionary: NavDictionary;
+  lang: Locale;
+}
+
+const getRoutes = (dictionary: NavDictionary) => [
   { href: "/", label: dictionary.home, icon: Home },
   { href: "/about", label: dictionary.about, icon: Info },
   { href: "/services", label: dictionary.services, icon: Brain },
   { href: "/contact", label: dictionary.contact, icon: Mail },
 ];
-
-interface NavbarProps {
-  dictionary: any;
-  lang: Locale;
-}
 
 export function Navbar({ dictionary, lang }: NavbarProps) {
   const pathname = usePathname();
