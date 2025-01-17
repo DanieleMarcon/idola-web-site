@@ -7,30 +7,70 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Il nome deve contenere almeno 2 caratteri"),
+  email: z.string().email("Inserisci un indirizzo email valido"),
+  subject: z.string().min(5, "L'oggetto deve contenere almeno 5 caratteri"),
+  message: z.string().min(10, "Il messaggio deve contenere almeno 10 caratteri"),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export default function ContactPage() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Messaggio inviato",
-      description: "Ti risponderemo il prima possibile.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
-  };
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+      if (!response.ok) {
+        throw new Error("Errore nell'invio del messaggio");
+      }
+
+      toast({
+        title: "Messaggio inviato",
+        description: "Ti risponderemo il prima possibile.",
+      });
+      form.reset();
+    } catch (error) {
+      toast({
+        title: "Errore",
+        description: "Si è verificato un errore nell'invio del messaggio. Riprova più tardi.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -62,64 +102,75 @@ export default function ContactPage() {
               transition={{ delay: 0.2 }}
               className="space-y-8"
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">
-                      Nome
-                    </label>
-                    <Input
-                      id="name"
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nome</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">
-                      Email
-                    </label>
-                    <Input
-                      id="email"
+                    <FormField
+                      control={form.control}
                       name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium">
-                    Oggetto
-                  </label>
-                  <Input
-                    id="subject"
+                  <FormField
+                    control={form.control}
                     name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Oggetto</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">
-                    Messaggio
-                  </label>
-                  <Textarea
-                    id="message"
+                  <FormField
+                    control={form.control}
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    className="min-h-[150px]"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Messaggio</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="min-h-[150px]"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <Button type="submit" className="w-full">
-                  <Send className="w-4 h-4 mr-2" />
-                  Invia Messaggio
-                </Button>
-              </form>
+                  <Button 
+                    type="submit" 
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
+                  </Button>
+                </form>
+              </Form>
 
               <div className="p-8 rounded-lg border border-border/50 backdrop-blur-sm text-center">
                 <h3 className="text-xl font-semibold mb-4">Preferisci una Call?</h3>
