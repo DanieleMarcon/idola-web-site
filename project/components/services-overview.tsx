@@ -18,8 +18,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 
 const services = [
   {
@@ -61,9 +60,34 @@ const services = [
 ];
 
 export function ServicesOverview() {
-  const plugin = useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
-  );
+  const [api, setApi] = useState<any>(null);
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      if (current === count - 1) {
+        api.scrollTo(0);
+      } else {
+        api.scrollNext();
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [api, current, count]);
 
   return (
     <section className="relative">
@@ -85,7 +109,7 @@ export function ServicesOverview() {
                 align: "start",
                 loop: true,
               }}
-              plugins={[plugin.current]}
+              setApi={setApi}
               className="w-full"
             >
               <CarouselContent className="-ml-4">
