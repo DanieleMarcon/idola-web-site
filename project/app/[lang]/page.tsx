@@ -4,14 +4,11 @@ import { WhyChooseUs } from "@/components/why-choose-us";
 import { getDictionary } from '@/get-dictionary';
 import { Locale, i18n } from '@/i18n-config';
 
-// Add generateStaticParams function
 export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({
-    lang: locale,
-  }));
+  return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default async function Home({
+export default async function LocalizedPage({
   params: { lang },
 }: {
   params: { lang: Locale };

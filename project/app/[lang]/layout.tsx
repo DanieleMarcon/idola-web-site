@@ -20,12 +20,10 @@ export const metadata: Metadata = {
 };
 
 export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({
-    lang: locale,
-  }));
+  return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
@@ -35,16 +33,18 @@ export default async function RootLayout({
   const dictionary = await getDictionary(params.lang);
 
   return (
-    <div className={`${inter.className} min-h-screen bg-black text-white`}>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-        <div className="flex min-h-screen flex-col">
-          <Navbar dictionary={dictionary.navigation} lang={params.lang} />
-          <main className="flex-1">{children}</main>
-          <Footer dictionary={dictionary.navigation} lang={params.lang} />
-        </div>
-        <Toaster />
-        <CookieConsent lang={params.lang} />
-      </ThemeProvider>
-    </div>
+    <html lang={params.lang} suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <div className="flex min-h-screen flex-col bg-black text-white">
+            <Navbar dictionary={dictionary.navigation} lang={params.lang} />
+            <main className="flex-1">{children}</main>
+            <Footer dictionary={dictionary.navigation} lang={params.lang} />
+          </div>
+          <Toaster />
+          <CookieConsent />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
