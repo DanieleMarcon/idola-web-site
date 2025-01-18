@@ -1,0 +1,29 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "Chi Siamo",
+    "services": "Servizi",
+    "contact": "Contatti"
+  },
+  "hero": {
+    "title": "Il Futuro è Qui",
+    "subtitle": "Scopri le nostre soluzioni innovative in AI, Blockchain, VR/AR e Metaverso. Trasforma la tua visione in realtà con Idola.",
+    "chatButton": "Parla con IDOLA AI",
+    "closeChat": "Chiudi Chat"
+  },
+  "chat": {
+    "welcome": "Ciao! Sono IDOLA AI. Come posso aiutarti oggi?",
+    "placeholder": "Scrivi un messaggio...",
+    "send": "Invia",
+    "quickResponses": {
+      "whatCanDo": "Cosa può fare IDOLA AI?",
+      "blockchain": "Parlami dei servizi blockchain",
+      "metaverse": "Come funziona il metaverso?",
+      "vrAr": "Voglio saperne di più sulla VR/AR"
+    }
+  },
+  "services": {
+    "title": "I Nostri Servizi",
+    "subtitle": "Scopri come le nostre soluzioni tecnologiche possono trasformare il tuo business"
+  }
+}

@@ -14,6 +14,11 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   basePath: '',
+  i18n: {
+    locales: ['it', 'en', 'es'],
+    defaultLocale: 'it',
+    localeDetection: true,
+  },
 };
 
 module.exports = nextConfig;

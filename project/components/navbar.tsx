@@ -5,20 +5,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, Info, Brain, BookOpen, Mail, Menu, X } from "lucide-react";
+import { Home, Info, Brain, Mail, Menu, X } from "lucide-react";
 import { IdolaLogo } from "@/components/idola-logo";
+import { LanguageSelector } from "@/components/language-selector";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const routes = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/about", label: "Chi Siamo", icon: Info },
-  { href: "/services", label: "Servizi", icon: Brain },
-  { href: "/contact", label: "Contatti", icon: Mail },
+  { href: "/", icon: Home },
+  { href: "/about", icon: Info },
+  { href: "/services", icon: Brain },
+  { href: "/contact", icon: Mail },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +47,7 @@ export function Navbar() {
           <nav className="hidden md:flex items-center space-x-6">
             {routes.map((route) => {
               const Icon = route.icon;
+              const label = t(`nav.${route.href.replace('/', '') || 'home'}`);
               return (
                 <Link
                   key={route.href}
@@ -56,24 +60,27 @@ export function Navbar() {
                   )}
                 >
                   <Icon className="h-4 w-4" />
-                  <span>{route.label}</span>
+                  <span>{label}</span>
                 </Link>
               );
             })}
+            <LanguageSelector />
           </nav>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </Button>
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSelector />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -81,6 +88,7 @@ export function Navbar() {
         <nav className="md:hidden border-t border-border/50 bg-black/95 backdrop-blur-sm">
           {routes.map((route) => {
             const Icon = route.icon;
+            const label = t(`nav.${route.href.replace('/', '') || 'home'}`);
             return (
               <Link
                 key={route.href}
@@ -94,7 +102,7 @@ export function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Icon className="h-4 w-4" />
-                <span>{route.label}</span>
+                <span>{label}</span>
               </Link>
             );
           })}
